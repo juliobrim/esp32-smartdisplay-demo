@@ -10,6 +10,7 @@
 extern "C" {
 #endif
 
+void OpenOperationScreen(lv_event_t * e);
 void CheckPassword(lv_event_t * e);
 
 #ifdef __cplusplus

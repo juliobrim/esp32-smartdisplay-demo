@@ -5,7 +5,14 @@
 
 #include "../ui.h"
 
+void ui_event_comp_PnlOpDisplay_PnlOpDisplay( lv_event_t * e) {
+  lv_event_code_t event_code = lv_event_get_code(e);
+lv_obj_t **comp_PnlOpDisplay = lv_event_get_user_data(e);
 
+if ( event_code == LV_EVENT_CLICKED) {
+    OpenOperationScreen( e );
+}
+}
 // COMPONENT PnlOpDisplay
 
 lv_obj_t *ui_PnlOpDisplay_create(lv_obj_t *comp_parent, const char *op_number, const char *product_name, const char *amount, const char *date) {
