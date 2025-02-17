@@ -1,6 +1,23 @@
-SET(SOURCES screens/ui_scrMain.c
+SET(SOURCES components/ui_comp_pnlopdisplay.c
+    components/ui_comp.c
+    screens/ui_ScrLogin.c
+    screens/ui_ScrMain.c
+    screens/ui_ScrPassword.c
+    screens/ui_ScrSettings.c
     ui.c
     components/ui_comp_hook.c
-    ui_helpers.c)
+    ui_helpers.c
+    ui_events.c
+    images/ui_img_580822032.c
+    images/ui_img_user_change_png.c
+    images/ui_img_1212854978.c
+    images/ui_img_pause_png.c
+    fonts/ui_font_Barlow16.c
+    fonts/ui_font_BarlowBold16.c
+    fonts/ui_font_BarlowBold20.c
+    fonts/ui_font_BarlowBold24.c
+    fonts/ui_font_Barlow18.c
+    fonts/ui_font_Barlow24.c
+    fonts/ui_font_Barlow22.c)
 
 add_library(ui ${SOURCES})
