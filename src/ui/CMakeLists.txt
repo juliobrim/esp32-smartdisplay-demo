@@ -10,6 +10,7 @@ SET(SOURCES components/ui_comp_pnlopdisplay.c
     ui_events.c
     images/ui_img_580822032.c
     images/ui_img_user_change_png.c
+    images/ui_img_right_png.c
     images/ui_img_1212854978.c
     images/ui_img_pause_png.c
     fonts/ui_font_Barlow16.c

@@ -57,6 +57,13 @@ void CheckPassword(lv_event_t * e)
     }
 }
 
+void OpenOperationScreen(lv_event_t * e)
+{
+    // Your code here
+    lv_tabview_set_active(ui_TabView1, 2, LV_ANIM_OFF);
+    // lv_screen_load_anim((lv_obj_t*)ui_ScrMain, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, false);
+}
+
 const int gpioPin17 = 17; // Define the GPIO pin number
 const int gpioPin18 = 18; // Define the GPIO pin number
 

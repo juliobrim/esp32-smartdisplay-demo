@@ -5,7 +5,7 @@
 
 #include "../ui.h"
 
-void ui_event_comp_PnlOpDisplay_PnlOpDisplay( lv_event_t * e) {
+void ui_event_comp_PnlOpDisplay_Button2( lv_event_t * e) {
   lv_event_code_t event_code = lv_event_get_code(e);
 lv_obj_t **comp_PnlOpDisplay = lv_event_get_user_data(e);
 

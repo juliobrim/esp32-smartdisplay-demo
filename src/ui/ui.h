@@ -141,6 +141,7 @@ extern lv_obj_t *ui____initial_actions0;
 // IMAGES AND IMAGE SETS
 LV_IMG_DECLARE( ui_img_580822032);   // assets/cogwheel-setting-small.png
 LV_IMG_DECLARE( ui_img_user_change_png);   // assets/user_change.png
+LV_IMG_DECLARE( ui_img_right_png);   // assets/right.png
 LV_IMG_DECLARE( ui_img_1212854978);   // assets/play (2).png
 LV_IMG_DECLARE( ui_img_pause_png);   // assets/pause.png
 
