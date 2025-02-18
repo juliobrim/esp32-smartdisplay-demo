@@ -6,33 +6,53 @@
 #include "../ui.h"
 
 
+void ui_event_comp_PnlOpDisplay_Image1( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+lv_obj_t **comp_PnlOpDisplay = lv_event_get_user_data(e);
+
+if ( event_code == LV_EVENT_CLICKED) {
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_PNLORDERINFO], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE6], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE1], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+}
+}
+
+void ui_event_comp_PnlOpDisplay_Image6( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+lv_obj_t **comp_PnlOpDisplay = lv_event_get_user_data(e);
+
+if ( event_code == LV_EVENT_CLICKED) {
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_PNLORDERINFO], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE6], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE1], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+}
+}
+
 void ui_event_comp_PnlOpDisplay_Button2( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);
 lv_obj_t **comp_PnlOpDisplay = lv_event_get_user_data(e);
 
 if ( event_code == LV_EVENT_CLICKED) {
-      OpenOperationScreen( e );
+      StartOperation( e );
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_PNLORDERINFO], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE6], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+      _ui_flag_modify( comp_PnlOpDisplay[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE1], LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
 }
 }
 
 // COMPONENT PnlOpDisplay
-lv_obj_t *ui_PnlOpDisplay_create(lv_obj_t *comp_parent, const char *op_number, const char *product_name, const char *amount, const char *date) {
+
+lv_obj_t *ui_PnlOpDisplay_create(lv_obj_t *comp_parent, const char * orderID, const char * productName, const char * amount, const char * dueDate, const char * endDate) {
 
 lv_obj_t *cui_PnlOpDisplay;
 cui_PnlOpDisplay = lv_obj_create(comp_parent);
-lv_obj_set_height( cui_PnlOpDisplay, 120);
 lv_obj_set_width( cui_PnlOpDisplay, lv_pct(100));
+lv_obj_set_height( cui_PnlOpDisplay, LV_SIZE_CONTENT);   /// 120
 lv_obj_set_x( cui_PnlOpDisplay, 2 );
 lv_obj_set_y( cui_PnlOpDisplay, -1 );
-lv_obj_set_flex_flow(cui_PnlOpDisplay,LV_FLEX_FLOW_ROW);
+lv_obj_set_flex_flow(cui_PnlOpDisplay,LV_FLEX_FLOW_COLUMN);
 lv_obj_set_flex_align(cui_PnlOpDisplay, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
 lv_obj_remove_flag( cui_PnlOpDisplay, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_obj_set_style_pad_left(cui_PnlOpDisplay, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_right(cui_PnlOpDisplay, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_top(cui_PnlOpDisplay, 10, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_bottom(cui_PnlOpDisplay, 10, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_row(cui_PnlOpDisplay, 5, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_pad_column(cui_PnlOpDisplay, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_bg_color(cui_PnlOpDisplay, lv_color_hex(0x6CFF8C), LV_PART_MAIN | LV_STATE_USER_1 );
 lv_obj_set_style_bg_opa(cui_PnlOpDisplay, 100, LV_PART_MAIN| LV_STATE_USER_1);
 lv_obj_set_style_bg_color(cui_PnlOpDisplay, lv_color_hex(0xF0FF6C), LV_PART_MAIN | LV_STATE_USER_2 );
@@ -40,11 +60,21 @@ lv_obj_set_style_bg_opa(cui_PnlOpDisplay, 100, LV_PART_MAIN| LV_STATE_USER_2);
 lv_obj_set_style_bg_color(cui_PnlOpDisplay, lv_color_hex(0xFF6C6C), LV_PART_MAIN | LV_STATE_USER_3 );
 lv_obj_set_style_bg_opa(cui_PnlOpDisplay, 100, LV_PART_MAIN| LV_STATE_USER_3);
 
+lv_obj_t *cui_Container18;
+cui_Container18 = lv_obj_create(cui_PnlOpDisplay);
+lv_obj_remove_style_all(cui_Container18);
+lv_obj_set_height( cui_Container18, 70);
+lv_obj_set_width( cui_Container18, lv_pct(100));
+lv_obj_set_align( cui_Container18, LV_ALIGN_CENTER );
+lv_obj_set_flex_flow(cui_Container18,LV_FLEX_FLOW_ROW);
+lv_obj_set_flex_align(cui_Container18, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
+lv_obj_remove_flag( cui_Container18, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+
 lv_obj_t *cui_Container16;
-cui_Container16 = lv_obj_create(cui_PnlOpDisplay);
+cui_Container16 = lv_obj_create(cui_Container18);
 lv_obj_remove_style_all(cui_Container16);
-lv_obj_set_height( cui_Container16, 100);
 lv_obj_set_width( cui_Container16, lv_pct(80));
+lv_obj_set_height( cui_Container16, lv_pct(100));
 lv_obj_set_align( cui_Container16, LV_ALIGN_CENTER );
 lv_obj_set_flex_flow(cui_Container16,LV_FLEX_FLOW_COLUMN);
 lv_obj_set_flex_align(cui_Container16, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
@@ -69,18 +99,49 @@ lv_obj_set_height( cui_Label7, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( cui_Label7, LV_ALIGN_CENTER );
 lv_label_set_text(cui_Label7,"OP:");
 lv_obj_set_style_text_align(cui_Label7, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(cui_Label7, &ui_font_BarlowBold16, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(cui_Label7, &ui_font_BarlowBold24, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 lv_obj_t *cui_LblOpNumber;
 cui_LblOpNumber = lv_label_create(cui_Container19);
 lv_obj_set_width( cui_LblOpNumber, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( cui_LblOpNumber, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( cui_LblOpNumber, LV_ALIGN_CENTER );
-lv_label_set_text(cui_LblOpNumber, op_number);
-lv_obj_set_style_text_font(cui_LblOpNumber, &ui_font_Barlow16, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_label_set_text(cui_LblOpNumber, orderID);
+lv_obj_set_style_text_font(cui_LblOpNumber, &ui_font_Barlow24, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+lv_obj_t *cui_Image1;
+cui_Image1 = lv_image_create(cui_Container18);
+lv_image_set_src(cui_Image1, &ui_img_1549334073);
+lv_obj_set_width( cui_Image1, lv_pct(20));
+lv_obj_set_height( cui_Image1, lv_pct(100));
+lv_obj_set_align( cui_Image1, LV_ALIGN_CENTER );
+lv_obj_add_flag( cui_Image1, LV_OBJ_FLAG_CLICKABLE );   /// Flags
+lv_obj_remove_flag( cui_Image1, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_obj_set_style_image_recolor(cui_Image1, lv_color_hex(0x5D139C), LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_image_recolor_opa(cui_Image1, 256, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+lv_obj_t *cui_Image6;
+cui_Image6 = lv_image_create(cui_Container18);
+lv_image_set_src(cui_Image6, &ui_img_1549334073);
+lv_obj_set_width( cui_Image6, lv_pct(20));
+lv_obj_set_height( cui_Image6, lv_pct(100));
+lv_obj_set_align( cui_Image6, LV_ALIGN_CENTER );
+lv_obj_add_flag( cui_Image6, LV_OBJ_FLAG_HIDDEN | LV_OBJ_FLAG_CLICKABLE );   /// Flags
+lv_obj_remove_flag( cui_Image6, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_image_set_rotation(cui_Image6,1800);
+
+lv_obj_t *cui_PnlOrderInfo;
+cui_PnlOrderInfo = lv_obj_create(cui_PnlOpDisplay);
+lv_obj_set_height( cui_PnlOrderInfo, 200);
+lv_obj_set_width( cui_PnlOrderInfo, lv_pct(100));
+lv_obj_set_align( cui_PnlOrderInfo, LV_ALIGN_CENTER );
+lv_obj_set_flex_flow(cui_PnlOrderInfo,LV_FLEX_FLOW_COLUMN);
+lv_obj_set_flex_align(cui_PnlOrderInfo, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
+lv_obj_add_flag( cui_PnlOrderInfo, LV_OBJ_FLAG_HIDDEN );   /// Flags
+lv_obj_remove_flag( cui_PnlOrderInfo, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
 
 lv_obj_t *cui_Container20;
-cui_Container20 = lv_obj_create(cui_Container16);
+cui_Container20 = lv_obj_create(cui_PnlOrderInfo);
 lv_obj_remove_style_all(cui_Container20);
 lv_obj_set_height( cui_Container20, 20);
 lv_obj_set_width( cui_Container20, lv_pct(100));
@@ -93,7 +154,7 @@ lv_obj_set_style_pad_column(cui_Container20, 10, LV_PART_MAIN| LV_STATE_DEFAULT)
 
 lv_obj_t *cui_Label17;
 cui_Label17 = lv_label_create(cui_Container20);
-lv_obj_set_width( cui_Label17, 100);
+lv_obj_set_width( cui_Label17, 120);
 lv_obj_set_height( cui_Label17, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( cui_Label17, LV_ALIGN_CENTER );
 lv_label_set_text(cui_Label17,"Produto:");
@@ -105,11 +166,11 @@ cui_LblOpOProduct = lv_label_create(cui_Container20);
 lv_obj_set_width( cui_LblOpOProduct, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( cui_LblOpOProduct, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( cui_LblOpOProduct, LV_ALIGN_CENTER );
-lv_label_set_text(cui_LblOpOProduct, product_name);
+lv_label_set_text(cui_LblOpOProduct, productName);
 lv_obj_set_style_text_font(cui_LblOpOProduct, &ui_font_Barlow16, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 lv_obj_t *cui_Container21;
-cui_Container21 = lv_obj_create(cui_Container16);
+cui_Container21 = lv_obj_create(cui_PnlOrderInfo);
 lv_obj_remove_style_all(cui_Container21);
 lv_obj_set_height( cui_Container21, 20);
 lv_obj_set_width( cui_Container21, lv_pct(100));
@@ -122,7 +183,7 @@ lv_obj_set_style_pad_column(cui_Container21, 10, LV_PART_MAIN| LV_STATE_DEFAULT)
 
 lv_obj_t *cui_Label20;
 cui_Label20 = lv_label_create(cui_Container21);
-lv_obj_set_width( cui_Label20, 100);
+lv_obj_set_width( cui_Label20, 120);
 lv_obj_set_height( cui_Label20, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( cui_Label20, LV_ALIGN_CENTER );
 lv_label_set_text(cui_Label20,"Quantidade:");
@@ -138,7 +199,7 @@ lv_label_set_text(cui_LblOpAmount, amount);
 lv_obj_set_style_text_font(cui_LblOpAmount, &ui_font_Barlow16, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 lv_obj_t *cui_Container22;
-cui_Container22 = lv_obj_create(cui_Container16);
+cui_Container22 = lv_obj_create(cui_PnlOrderInfo);
 lv_obj_remove_style_all(cui_Container22);
 lv_obj_set_height( cui_Container22, 20);
 lv_obj_set_width( cui_Container22, lv_pct(100));
@@ -151,7 +212,7 @@ lv_obj_set_style_pad_column(cui_Container22, 10, LV_PART_MAIN| LV_STATE_DEFAULT)
 
 lv_obj_t *cui_Label22;
 cui_Label22 = lv_label_create(cui_Container22);
-lv_obj_set_width( cui_Label22, 100);
+lv_obj_set_width( cui_Label22, 120);
 lv_obj_set_height( cui_Label22, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( cui_Label22, LV_ALIGN_CENTER );
 lv_label_set_text(cui_Label22,"Data Início:");
@@ -163,40 +224,93 @@ cui_LblOpStartDate = lv_label_create(cui_Container22);
 lv_obj_set_width( cui_LblOpStartDate, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( cui_LblOpStartDate, LV_SIZE_CONTENT);   /// 1
 lv_obj_set_align( cui_LblOpStartDate, LV_ALIGN_CENTER );
-lv_label_set_text(cui_LblOpStartDate, date);
+lv_label_set_text(cui_LblOpStartDate, dueDate);
 lv_obj_set_style_text_font(cui_LblOpStartDate, &ui_font_Barlow16, LV_PART_MAIN| LV_STATE_DEFAULT);
 
+lv_obj_t *cui_Container23;
+cui_Container23 = lv_obj_create(cui_PnlOrderInfo);
+lv_obj_remove_style_all(cui_Container23);
+lv_obj_set_height( cui_Container23, 20);
+lv_obj_set_width( cui_Container23, lv_pct(100));
+lv_obj_set_align( cui_Container23, LV_ALIGN_CENTER );
+lv_obj_set_flex_flow(cui_Container23,LV_FLEX_FLOW_ROW);
+lv_obj_set_flex_align(cui_Container23, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_CENTER);
+lv_obj_remove_flag( cui_Container23, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_obj_set_style_pad_row(cui_Container23, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_pad_column(cui_Container23, 10, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+lv_obj_t *cui_Label1;
+cui_Label1 = lv_label_create(cui_Container23);
+lv_obj_set_width( cui_Label1, 120);
+lv_obj_set_height( cui_Label1, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( cui_Label1, LV_ALIGN_CENTER );
+lv_label_set_text(cui_Label1,"Data Planejada:");
+lv_obj_set_style_text_align(cui_Label1, LV_TEXT_ALIGN_RIGHT, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(cui_Label1, &ui_font_BarlowBold16, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+lv_obj_t *cui_LblOpEndDate;
+cui_LblOpEndDate = lv_label_create(cui_Container23);
+lv_obj_set_width( cui_LblOpEndDate, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( cui_LblOpEndDate, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( cui_LblOpEndDate, LV_ALIGN_CENTER );
+lv_label_set_text(cui_LblOpEndDate, endDate);
+lv_obj_set_style_text_font(cui_LblOpEndDate, &ui_font_Barlow16, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+lv_obj_t *cui_Container24;
+cui_Container24 = lv_obj_create(cui_PnlOrderInfo);
+lv_obj_remove_style_all(cui_Container24);
+lv_obj_set_height( cui_Container24, 50);
+lv_obj_set_width( cui_Container24, lv_pct(100));
+lv_obj_set_align( cui_Container24, LV_ALIGN_CENTER );
+lv_obj_remove_flag( cui_Container24, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+
 lv_obj_t *cui_Button2;
-cui_Button2 = lv_button_create(cui_PnlOpDisplay);
-lv_obj_set_width( cui_Button2, lv_pct(20));
-lv_obj_set_height( cui_Button2, lv_pct(100));
+cui_Button2 = lv_button_create(cui_Container24);
+lv_obj_set_width( cui_Button2, 100);
+lv_obj_set_height( cui_Button2, 50);
 lv_obj_set_align( cui_Button2, LV_ALIGN_CENTER );
 lv_obj_add_flag( cui_Button2, LV_OBJ_FLAG_SCROLL_ON_FOCUS );   /// Flags
 lv_obj_remove_flag( cui_Button2, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_obj_set_style_bg_color(cui_Button2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_bg_opa(cui_Button2, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_bg_image_src( cui_Button2, &ui_img_right_png, LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_shadow_color(cui_Button2, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_shadow_opa(cui_Button2, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_bg_color(cui_Button2, lv_color_hex(0x592D90), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_opa(cui_Button2, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+lv_obj_t *cui_Label2;
+cui_Label2 = lv_label_create(cui_Button2);
+lv_obj_set_width( cui_Label2, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( cui_Label2, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_align( cui_Label2, LV_ALIGN_CENTER );
+lv_label_set_text(cui_Label2,"Iniciar");
+lv_obj_set_style_text_font(cui_Label2, &ui_font_BarlowBold20, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 lv_obj_t ** children = lv_malloc(sizeof(lv_obj_t *) * _UI_COMP_PNLOPDISPLAY_NUM);
 children[UI_COMP_PNLOPDISPLAY_PNLOPDISPLAY] = cui_PnlOpDisplay;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16] = cui_Container16;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER19] = cui_Container19;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER19_LABEL7] = cui_Label7;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER19_LBLOPNUMBER] = cui_LblOpNumber;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER20] = cui_Container20;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER20_LABEL17] = cui_Label17;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER20_LBLOPOPRODUCT] = cui_LblOpOProduct;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER21] = cui_Container21;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER21_LABEL20] = cui_Label20;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER21_LBLOPAMOUNT] = cui_LblOpAmount;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER22] = cui_Container22;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER22_LABEL22] = cui_Label22;
-children[UI_COMP_PNLOPDISPLAY_CONTAINER16_CONTAINER22_LBLOPSTARTDATE] = cui_LblOpStartDate;
-children[UI_COMP_PNLOPDISPLAY_BUTTON2] = cui_Button2;
+children[UI_COMP_PNLOPDISPLAY_CONTAINER18] = cui_Container18;
+children[UI_COMP_PNLOPDISPLAY_CONTAINER18_CONTAINER16] = cui_Container16;
+children[UI_COMP_PNLOPDISPLAY_CONTAINER18_CONTAINER16_CONTAINER19] = cui_Container19;
+children[UI_COMP_PNLOPDISPLAY_CONTAINER18_CONTAINER16_CONTAINER19_LABEL7] = cui_Label7;
+children[UI_COMP_PNLOPDISPLAY_CONTAINER18_CONTAINER16_CONTAINER19_LBLOPNUMBER] = cui_LblOpNumber;
+children[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE1] = cui_Image1;
+children[UI_COMP_PNLOPDISPLAY_CONTAINER18_IMAGE6] = cui_Image6;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO] = cui_PnlOrderInfo;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER20] = cui_Container20;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER20_LABEL17] = cui_Label17;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER20_LBLOPOPRODUCT] = cui_LblOpOProduct;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER21] = cui_Container21;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER21_LABEL20] = cui_Label20;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER21_LBLOPAMOUNT] = cui_LblOpAmount;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER22] = cui_Container22;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER22_LABEL22] = cui_Label22;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER22_LBLOPSTARTDATE] = cui_LblOpStartDate;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER23] = cui_Container23;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER23_LABEL1] = cui_Label1;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER23_LBLOPENDDATE] = cui_LblOpEndDate;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER24] = cui_Container24;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER24_BUTTON2] = cui_Button2;
+children[UI_COMP_PNLOPDISPLAY_PNLORDERINFO_CONTAINER24_BUTTON2_LABEL2] = cui_Label2;
 lv_obj_add_event_cb(cui_PnlOpDisplay, get_component_child_event_cb, LV_EVENT_GET_COMP_CHILD, children);
 lv_obj_add_event_cb(cui_PnlOpDisplay, del_component_child_event_cb, LV_EVENT_DELETE, children);
+lv_obj_add_event_cb(cui_Image1, ui_event_comp_PnlOpDisplay_Image1, LV_EVENT_ALL, children);
+lv_obj_add_event_cb(cui_Image6, ui_event_comp_PnlOpDisplay_Image6, LV_EVENT_ALL, children);
 lv_obj_add_event_cb(cui_Button2, ui_event_comp_PnlOpDisplay_Button2, LV_EVENT_ALL, children);
 ui_comp_PnlOpDisplay_create_hook(cui_PnlOpDisplay);
 return cui_PnlOpDisplay; 

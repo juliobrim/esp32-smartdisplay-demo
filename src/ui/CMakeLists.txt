@@ -10,15 +10,15 @@ SET(SOURCES components/ui_comp_pnlopdisplay.c
     ui_events.c
     images/ui_img_580822032.c
     images/ui_img_user_change_png.c
-    images/ui_img_right_png.c
+    images/ui_img_1549334073.c
     images/ui_img_1212854978.c
     images/ui_img_pause_png.c
     fonts/ui_font_Barlow16.c
+    fonts/ui_font_Barlow18.c
+    fonts/ui_font_Barlow22.c
+    fonts/ui_font_Barlow24.c
     fonts/ui_font_BarlowBold16.c
     fonts/ui_font_BarlowBold20.c
-    fonts/ui_font_BarlowBold24.c
-    fonts/ui_font_Barlow18.c
-    fonts/ui_font_Barlow24.c
-    fonts/ui_font_Barlow22.c)
+    fonts/ui_font_BarlowBold24.c)
 
 add_library(ui ${SOURCES})

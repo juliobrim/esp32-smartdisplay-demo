@@ -55,10 +55,29 @@ lv_obj_t *ui_Panel7;
 lv_obj_t *ui_Label6;
 lv_obj_t *ui_PnlOpDisplay;
 lv_obj_t *ui_TabPage2;
-lv_obj_t *ui_PnlOpDisplay3;
+lv_obj_t *ui_PnlOpDisplay1;
+lv_obj_t *ui_Container25;
+lv_obj_t *ui_Container26;
+lv_obj_t *ui_Container27;
+lv_obj_t *ui_Label18;
+lv_obj_t *ui_LblRunningOpNumber;
+lv_obj_t *ui_Container28;
+lv_obj_t *ui_Label19;
+lv_obj_t *ui_LblRunningOpProduct;
+lv_obj_t *ui_Container29;
+lv_obj_t *ui_Label21;
+lv_obj_t *ui_LblRunningOpAmount;
+lv_obj_t *ui_Container30;
+lv_obj_t *ui_Label23;
+lv_obj_t *ui_LblRunningOpStartDate;
+lv_obj_t *ui_Container31;
+lv_obj_t *ui_Label24;
+lv_obj_t *ui_LblRunningOpEndDate;
 lv_obj_t *ui_Container17;
-lv_obj_t *ui_Image5;
-lv_obj_t *ui_Image4;
+void ui_event_CmdRunningOpStart( lv_event_t * e);
+lv_obj_t *ui_CmdRunningOpStart;
+void ui_event_CmdRunningOpPause( lv_event_t * e);
+lv_obj_t *ui_CmdRunningOpPause;
 lv_obj_t *ui_Container6;
 lv_obj_t *ui_Container2;
 lv_obj_t *ui_dataDefaultTimeLabel;
@@ -76,7 +95,6 @@ lv_obj_t *ui_Container40;
 lv_obj_t *ui_dataPiecesRejectedLabel;
 lv_obj_t *ui_dataPiecesRejected;
 lv_obj_t *ui_dataPiecesRejectedUnit;
-lv_obj_t *ui_TabPage3;
 lv_obj_t *ui_Footer;
 lv_obj_t *ui_Container9;
 lv_obj_t *ui_Label4;
@@ -110,9 +128,13 @@ lv_obj_t *ui_LblCompanyName;
 lv_obj_t *ui_Container12;
 lv_obj_t *ui_Label11;
 lv_obj_t *ui_LblWifiSSID;
-lv_obj_t *ui_Container13;
-lv_obj_t *ui_Label12;
-lv_obj_t *ui_Lbl;
+lv_obj_t *ui_Container33;
+lv_obj_t *ui_Label25;
+lv_obj_t *ui_LedSensor1;
+lv_obj_t *ui_Container34;
+lv_obj_t *ui_Label26;
+lv_obj_t *ui_LedSensor2;
+lv_obj_t *ui_Container32;
 void ui_event_Button1( lv_event_t * e);
 lv_obj_t *ui_Button1;
 lv_obj_t *ui_Label56;
@@ -196,6 +218,22 @@ if ( event_code == LV_EVENT_CLICKED) {
 if ( event_code == LV_EVENT_CLICKED) {
       _ui_basic_set_property(ui_BtnBackLogin, _UI_BASIC_PROPERTY_POSITION_X,  0);
       _ui_flag_modify( ui_BtnBackLogin, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+}
+}
+
+void ui_event_CmdRunningOpStart( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+if ( event_code == LV_EVENT_CLICKED) {
+      CmdRunningOpStart( e );
+}
+}
+
+void ui_event_CmdRunningOpPause( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+if ( event_code == LV_EVENT_CLICKED) {
+      CmdRunningOpPause( e );
 }
 }
 

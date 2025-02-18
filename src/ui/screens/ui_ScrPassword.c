@@ -11,7 +11,7 @@ ui_ScrPassword = lv_obj_create(NULL);
 lv_obj_remove_flag( ui_ScrPassword, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
 lv_obj_set_flex_flow(ui_ScrPassword,LV_FLEX_FLOW_COLUMN);
 lv_obj_set_flex_align(ui_ScrPassword, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_START);
-lv_obj_set_style_bg_color(ui_ScrPassword, lv_color_hex(0x5D139C), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_color(ui_ScrPassword, lv_color_hex(0x592D90), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(ui_ScrPassword, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
 ui_Container4 = lv_obj_create(ui_ScrPassword);

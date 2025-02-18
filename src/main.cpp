@@ -23,14 +23,15 @@ struct Order {
     const char* productName;
     const char* amount;
     const char* dueDate;
+    const char* endDate;
 };
 
 Order orders[5] = {
-    {"0001", "Sofá Couro", "10 pçs", "05/02/2022"},
-    {"0002", "Sofá Modular", "20 pçs", "08/02/2022"},
-    {"0003", "Sofá Retrátil", "15 pçs", "12/02/2022"},
-    {"0004", "Sofá Premium", "1.000 pçs", "17/02/2022"},
-    {"0005", "Julio Brim", "1 pçs", "14/10/1988"}
+    {"0001", "Sofá Couro", "10 pçs", "05/02/2022", "05/02/2022"},
+    {"0002", "Sofá Modular", "20 pçs", "08/02/2022", "08/02/2022"},
+    {"0003", "Sofá Retrátil", "15 pçs", "12/02/2022", "12/02/2022"},
+    {"0004", "Sofá Premium", "1.000 pçs", "17/02/2022", "17/02/2022"},
+    {"0005", "Julio Brim", "1 pçs", "14/10/1988", "14/10/2088"}
 };
 
 const char* verifyUser(const char* userID, const char* pin) {
@@ -57,12 +58,21 @@ void CheckPassword(lv_event_t * e)
     }
 }
 
-void OpenOperationScreen(lv_event_t * e)
+void StartOperation(lv_event_t * e)
 {
     // Your code here
-    lv_tabview_set_active(ui_TabView1, 2, LV_ANIM_OFF);
+    lv_tabview_set_active(ui_TabView1, 1, LV_ANIM_OFF);
     // lv_screen_load_anim((lv_obj_t*)ui_ScrMain, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, false);
 }
+
+void CmdRunningOpStart(lv_event_t * e){
+    // Your code here
+    lv_tabview_set_active(ui_TabView1, 0, LV_ANIM_OFF);
+};
+void CmdRunningOpPause(lv_event_t * e){
+    // Your code here
+    lv_tabview_set_active(ui_TabView1, 0, LV_ANIM_OFF);
+};
 
 const int gpioPin17 = 17; // Define the GPIO pin number
 const int gpioPin18 = 18; // Define the GPIO pin number
@@ -106,7 +116,7 @@ void setup()
             lv_obj_del(ui_PnlOpDisplays[i]);
             Serial.println("deletando");
         }
-        ui_PnlOpDisplays[i] = ui_PnlOpDisplay_create(ui_Container1, orders[i].orderID, orders[i].productName, orders[i].amount, orders[i].dueDate);
+        ui_PnlOpDisplays[i] = ui_PnlOpDisplay_create(ui_Container1, orders[i].orderID, orders[i].productName, orders[i].amount, orders[i].dueDate, orders[i].endDate);
         
         if (i == 0) {
             lv_obj_add_state( ui_PnlOpDisplays[i], LV_STATE_USER_1 );
@@ -147,19 +157,20 @@ void loop()
         int gpioStatus = digitalRead(gpioPin17);
 
 
-        // Definir a cor de fundo do uiLed1 de acordo com o estado do GPIO
-        // if (gpioStatus == HIGH) {
-        //     lv_obj_set_style_bg_color(ui_uiLed1, lv_color_hex(0x00FF00), LV_PART_MAIN); // Verde
-        // } else {
-        //     lv_obj_set_style_bg_color(ui_uiLed1, lv_color_hex(0xFF0000), LV_PART_MAIN); // Vermelho
-        // }
+        //Definir a cor de fundo do uiLed1 de acordo com o estado do GPIO
+        if (gpioStatus == HIGH) {
+            
+            lv_obj_add_state(ui_LedSensor1, LV_STATE_CHECKED);
+        } else {
+            lv_obj_remove_state(ui_LedSensor1, LV_STATE_CHECKED);
+        }
 
         int gpio18Status = digitalRead(gpioPin18);
-        // if (gpio18Status == HIGH) {
-        //     lv_obj_set_style_bg_color(ui_uiLed2, lv_color_hex(0x00FF00), LV_PART_MAIN); // Verde
-        // } else {
-        //     lv_obj_set_style_bg_color(ui_uiLed2, lv_color_hex(0xFF0000), LV_PART_MAIN); // Vermelho
-        // }
+         if (gpio18Status == HIGH) {
+            lv_obj_add_state(ui_LedSensor2, LV_STATE_CHECKED);
+        } else {
+            lv_obj_remove_state(ui_LedSensor2, LV_STATE_CHECKED);
+        }
 
 
     }

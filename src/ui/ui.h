@@ -72,10 +72,29 @@ extern lv_obj_t *ui_Panel7;
 extern lv_obj_t *ui_Label6;
 extern lv_obj_t *ui_PnlOpDisplay;
 extern lv_obj_t *ui_TabPage2;
-extern lv_obj_t *ui_PnlOpDisplay3;
+extern lv_obj_t *ui_PnlOpDisplay1;
+extern lv_obj_t *ui_Container25;
+extern lv_obj_t *ui_Container26;
+extern lv_obj_t *ui_Container27;
+extern lv_obj_t *ui_Label18;
+extern lv_obj_t *ui_LblRunningOpNumber;
+extern lv_obj_t *ui_Container28;
+extern lv_obj_t *ui_Label19;
+extern lv_obj_t *ui_LblRunningOpProduct;
+extern lv_obj_t *ui_Container29;
+extern lv_obj_t *ui_Label21;
+extern lv_obj_t *ui_LblRunningOpAmount;
+extern lv_obj_t *ui_Container30;
+extern lv_obj_t *ui_Label23;
+extern lv_obj_t *ui_LblRunningOpStartDate;
+extern lv_obj_t *ui_Container31;
+extern lv_obj_t *ui_Label24;
+extern lv_obj_t *ui_LblRunningOpEndDate;
 extern lv_obj_t *ui_Container17;
-extern lv_obj_t *ui_Image5;
-extern lv_obj_t *ui_Image4;
+void ui_event_CmdRunningOpStart( lv_event_t * e);
+extern lv_obj_t *ui_CmdRunningOpStart;
+void ui_event_CmdRunningOpPause( lv_event_t * e);
+extern lv_obj_t *ui_CmdRunningOpPause;
 extern lv_obj_t *ui_Container6;
 extern lv_obj_t *ui_Container2;
 extern lv_obj_t *ui_dataDefaultTimeLabel;
@@ -93,7 +112,6 @@ extern lv_obj_t *ui_Container40;
 extern lv_obj_t *ui_dataPiecesRejectedLabel;
 extern lv_obj_t *ui_dataPiecesRejected;
 extern lv_obj_t *ui_dataPiecesRejectedUnit;
-extern lv_obj_t *ui_TabPage3;
 extern lv_obj_t *ui_Footer;
 extern lv_obj_t *ui_Container9;
 extern lv_obj_t *ui_Label4;
@@ -125,9 +143,13 @@ extern lv_obj_t *ui_LblCompanyName;
 extern lv_obj_t *ui_Container12;
 extern lv_obj_t *ui_Label11;
 extern lv_obj_t *ui_LblWifiSSID;
-extern lv_obj_t *ui_Container13;
-extern lv_obj_t *ui_Label12;
-extern lv_obj_t *ui_Lbl;
+extern lv_obj_t *ui_Container33;
+extern lv_obj_t *ui_Label25;
+extern lv_obj_t *ui_LedSensor1;
+extern lv_obj_t *ui_Container34;
+extern lv_obj_t *ui_Label26;
+extern lv_obj_t *ui_LedSensor2;
+extern lv_obj_t *ui_Container32;
 void ui_event_Button1( lv_event_t * e);
 extern lv_obj_t *ui_Button1;
 extern lv_obj_t *ui_Label56;
@@ -139,18 +161,18 @@ extern lv_obj_t *ui____initial_actions0;
 // IMAGES AND IMAGE SETS
 LV_IMG_DECLARE( ui_img_580822032);   // assets/cogwheel-setting-small.png
 LV_IMG_DECLARE( ui_img_user_change_png);   // assets/user_change.png
-LV_IMG_DECLARE( ui_img_right_png);   // assets/right.png
+LV_IMG_DECLARE( ui_img_1549334073);   // assets/down-circle-svgrepo-com.png
 LV_IMG_DECLARE( ui_img_1212854978);   // assets/play (2).png
 LV_IMG_DECLARE( ui_img_pause_png);   // assets/pause.png
 
 // FONTS
 LV_FONT_DECLARE( ui_font_Barlow16);
+LV_FONT_DECLARE( ui_font_Barlow18);
+LV_FONT_DECLARE( ui_font_Barlow22);
+LV_FONT_DECLARE( ui_font_Barlow24);
 LV_FONT_DECLARE( ui_font_BarlowBold16);
 LV_FONT_DECLARE( ui_font_BarlowBold20);
 LV_FONT_DECLARE( ui_font_BarlowBold24);
-LV_FONT_DECLARE( ui_font_Barlow18);
-LV_FONT_DECLARE( ui_font_Barlow24);
-LV_FONT_DECLARE( ui_font_Barlow22);
 
 // UI INIT
 void ui_init(void);

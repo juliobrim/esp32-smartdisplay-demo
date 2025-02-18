@@ -9,7 +9,7 @@ void ui_ScrLogin_screen_init(void)
 {
 ui_ScrLogin = lv_obj_create(NULL);
 lv_obj_remove_flag( ui_ScrLogin, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_obj_set_style_bg_color(ui_ScrLogin, lv_color_hex(0x5D139C), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_color(ui_ScrLogin, lv_color_hex(0x592D90), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(ui_ScrLogin, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_left(ui_ScrLogin, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_pad_right(ui_ScrLogin, 20, LV_PART_MAIN| LV_STATE_DEFAULT);
