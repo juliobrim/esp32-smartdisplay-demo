@@ -165,13 +165,44 @@ lv_obj_set_align( ui_Label6, LV_ALIGN_CENTER );
 lv_label_set_text(ui_Label6,"Sem ordens de produção");
 lv_obj_set_style_text_font(ui_Label6, &ui_font_BarlowBold16, LV_PART_MAIN| LV_STATE_DEFAULT);
 
+ui_PnlOpDisplay = ui_PnlOpDisplay_create(ui_Container1, "INIT-0003", "Op Criada UI", "15 pçs", "01/01/2022");
+lv_obj_set_x( ui_PnlOpDisplay, 2 );
+lv_obj_set_y( ui_PnlOpDisplay, -1 );
+lv_obj_add_state( ui_PnlOpDisplay, LV_STATE_USER_1 );     /// States
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ui_TabPage2 = lv_tabview_add_tab(ui_TabView1, "Em Execução");
 lv_obj_set_flex_flow(ui_TabPage2,LV_FLEX_FLOW_COLUMN);
 lv_obj_set_flex_align(ui_TabPage2, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START, LV_FLEX_ALIGN_START);
 
-ui_PnlOpDisplay3 = ui_PnlOpDisplay_create(ui_TabPage2, "OP 0003", "Sofá Retrátil", "15 pçs", "01/01/2022");
+ui_PnlOpDisplay3 = ui_PnlOpDisplay_create(ui_TabPage2, "INIT-0004", "Op Criada UI", "10 pçs", "01/01/2025");
 lv_obj_set_x( ui_PnlOpDisplay3, 0 );
 lv_obj_set_y( ui_PnlOpDisplay3, 0 );
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ui_Container17 = lv_obj_create(ui_TabPage2);
 lv_obj_remove_style_all(ui_Container17);

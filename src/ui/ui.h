@@ -71,8 +71,6 @@ extern lv_obj_t *ui_Container1;
 extern lv_obj_t *ui_Panel7;
 extern lv_obj_t *ui_Label6;
 extern lv_obj_t *ui_PnlOpDisplay;
-extern lv_obj_t *ui_PnlOpDisplay1;
-extern lv_obj_t *ui_PnlOpDisplay2;
 extern lv_obj_t *ui_TabPage2;
 extern lv_obj_t *ui_PnlOpDisplay3;
 extern lv_obj_t *ui_Container17;

@@ -54,8 +54,6 @@ lv_obj_t *ui_Container1;
 lv_obj_t *ui_Panel7;
 lv_obj_t *ui_Label6;
 lv_obj_t *ui_PnlOpDisplay;
-lv_obj_t *ui_PnlOpDisplay1;
-lv_obj_t *ui_PnlOpDisplay2;
 lv_obj_t *ui_TabPage2;
 lv_obj_t *ui_PnlOpDisplay3;
 lv_obj_t *ui_Container17;
