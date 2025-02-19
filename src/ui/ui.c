@@ -9,48 +9,24 @@
 ///////////////////// VARIABLES ////////////////////
 
 
-// SCREEN: ui_ScrLogin
-void ui_ScrLogin_screen_init(void);
-lv_obj_t *ui_ScrLogin;
-lv_obj_t *ui_Container6;
-lv_obj_t *ui_Container3;
-lv_obj_t *ui_Label14;
-lv_obj_t *ui_Container2;
-void ui_event_Panel8( lv_event_t * e);
-lv_obj_t *ui_Panel8;
-lv_obj_t *ui_Label8;
-void ui_event_Panel9( lv_event_t * e);
-lv_obj_t *ui_Panel9;
-lv_obj_t *ui_Label5;
-void ui_event_Panel10( lv_event_t * e);
-lv_obj_t *ui_Panel10;
-void ui_event_Image3( lv_event_t * e);
-lv_obj_t *ui_Image3;
-void ui_event_BtnBackLogin( lv_event_t * e);
-lv_obj_t *ui_BtnBackLogin;
-lv_obj_t *ui_Label58;
-// CUSTOM VARIABLES
-
-
 // SCREEN: ui_ScrMain
 void ui_ScrMain_screen_init(void);
 lv_obj_t *ui_ScrMain;
 lv_obj_t *ui_Header;
-lv_obj_t *ui_Container8;
-lv_obj_t *ui_Container14;
+lv_obj_t *ui_Cnt8;
+lv_obj_t *ui_C14;
 lv_obj_t *ui_Label3;
 lv_obj_t *ui_LblStationName;
-lv_obj_t *ui_Container15;
+lv_obj_t *ui_C15;
 lv_obj_t *ui_Label13;
 lv_obj_t *ui_LblOperatorName;
-void ui_event_Container7( lv_event_t * e);
-lv_obj_t *ui_Container7;
+lv_obj_t *ui_Cnt7;
 void ui_event_Image2( lv_event_t * e);
 lv_obj_t *ui_Image2;
 lv_obj_t *ui_Body;
 lv_obj_t *ui_TabView1;
 lv_obj_t *ui_TabPage1;
-lv_obj_t *ui_Container1;
+lv_obj_t *ui_PnlList;
 lv_obj_t *ui_Panel7;
 lv_obj_t *ui_Label6;
 lv_obj_t *ui_PnlOpDisplay;
@@ -98,6 +74,29 @@ lv_obj_t *ui_dataPiecesRejectedUnit;
 lv_obj_t *ui_Footer;
 lv_obj_t *ui_Container9;
 lv_obj_t *ui_Label4;
+// CUSTOM VARIABLES
+
+
+// SCREEN: ui_ScrLogin
+void ui_ScrLogin_screen_init(void);
+lv_obj_t *ui_ScrLogin;
+lv_obj_t *ui_Container6;
+lv_obj_t *ui_Container3;
+lv_obj_t *ui_Label14;
+lv_obj_t *ui_Container2;
+void ui_event_Panel8( lv_event_t * e);
+lv_obj_t *ui_Panel8;
+lv_obj_t *ui_Label8;
+void ui_event_Panel9( lv_event_t * e);
+lv_obj_t *ui_Panel9;
+lv_obj_t *ui_Label5;
+void ui_event_Panel10( lv_event_t * e);
+lv_obj_t *ui_Panel10;
+void ui_event_Image3( lv_event_t * e);
+lv_obj_t *ui_Image3;
+void ui_event_BtnBackLogin( lv_event_t * e);
+lv_obj_t *ui_BtnBackLogin;
+lv_obj_t *ui_Label58;
 // CUSTOM VARIABLES
 
 
@@ -153,6 +152,34 @@ lv_obj_t *ui____initial_actions0;
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_Image2( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+if ( event_code == LV_EVENT_CLICKED) {
+      _ui_screen_change( &ui_ScrLogin, LV_SCR_LOAD_ANIM_NONE, 100, 0, &ui_ScrLogin_screen_init);
+}
+if ( event_code == LV_EVENT_CLICKED) {
+      _ui_basic_set_property(ui_BtnBackLogin, _UI_BASIC_PROPERTY_POSITION_X,  0);
+      _ui_flag_modify( ui_BtnBackLogin, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+}
+}
+
+void ui_event_CmdRunningOpStart( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+if ( event_code == LV_EVENT_CLICKED) {
+      CmdRunningOpStart( e );
+}
+}
+
+void ui_event_CmdRunningOpPause( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+if ( event_code == LV_EVENT_CLICKED) {
+      CmdRunningOpPause( e );
+}
+}
+
 void ui_event_Panel8( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);
 
@@ -201,42 +228,6 @@ if ( event_code == LV_EVENT_CLICKED) {
 }
 }
 
-void ui_event_Container7( lv_event_t * e) {
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-if ( event_code == LV_EVENT_CLICKED) {
-      _ui_screen_change( &ui_ScrLogin, LV_SCR_LOAD_ANIM_NONE, 0, 0, &ui_ScrLogin_screen_init);
-}
-}
-
-void ui_event_Image2( lv_event_t * e) {
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-if ( event_code == LV_EVENT_CLICKED) {
-      _ui_screen_change( &ui_ScrLogin, LV_SCR_LOAD_ANIM_NONE, 100, 0, &ui_ScrLogin_screen_init);
-}
-if ( event_code == LV_EVENT_CLICKED) {
-      _ui_basic_set_property(ui_BtnBackLogin, _UI_BASIC_PROPERTY_POSITION_X,  0);
-      _ui_flag_modify( ui_BtnBackLogin, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
-}
-}
-
-void ui_event_CmdRunningOpStart( lv_event_t * e) {
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-if ( event_code == LV_EVENT_CLICKED) {
-      CmdRunningOpStart( e );
-}
-}
-
-void ui_event_CmdRunningOpPause( lv_event_t * e) {
-    lv_event_code_t event_code = lv_event_get_code(e);
-
-if ( event_code == LV_EVENT_CLICKED) {
-      CmdRunningOpPause( e );
-}
-}
-
 void ui_event_Keyboard1( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);
 
@@ -261,10 +252,10 @@ void ui_init( void )
 lv_disp_t *dispp = lv_display_get_default();
 lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
 lv_disp_set_theme(dispp, theme);
-ui_ScrLogin_screen_init();
 ui_ScrMain_screen_init();
+ui_ScrLogin_screen_init();
 ui_ScrPassword_screen_init();
 ui_ScrSettings_screen_init();
 ui____initial_actions0 = lv_obj_create(NULL);
-lv_disp_load_scr( ui_ScrLogin);
+lv_disp_load_scr( ui_ScrMain);
 }

@@ -10,7 +10,6 @@
 extern "C" {
 #endif
 
-void StartOperation(lv_event_t * e);
 void CmdRunningOpStart(lv_event_t * e);
 void CmdRunningOpPause(lv_event_t * e);
 void CheckPassword(lv_event_t * e);

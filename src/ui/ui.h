@@ -27,47 +27,24 @@ extern "C" {
 #include "components/ui_comp_hook.h"
 #include "ui_events.h"
 
-// SCREEN: ui_ScrLogin
-void ui_ScrLogin_screen_init(void);
-extern lv_obj_t *ui_ScrLogin;
-extern lv_obj_t *ui_Container6;
-extern lv_obj_t *ui_Container3;
-extern lv_obj_t *ui_Label14;
-extern lv_obj_t *ui_Container2;
-void ui_event_Panel8( lv_event_t * e);
-extern lv_obj_t *ui_Panel8;
-extern lv_obj_t *ui_Label8;
-void ui_event_Panel9( lv_event_t * e);
-extern lv_obj_t *ui_Panel9;
-extern lv_obj_t *ui_Label5;
-void ui_event_Panel10( lv_event_t * e);
-extern lv_obj_t *ui_Panel10;
-void ui_event_Image3( lv_event_t * e);
-extern lv_obj_t *ui_Image3;
-void ui_event_BtnBackLogin( lv_event_t * e);
-extern lv_obj_t *ui_BtnBackLogin;
-extern lv_obj_t *ui_Label58;
-// CUSTOM VARIABLES
-
 // SCREEN: ui_ScrMain
 void ui_ScrMain_screen_init(void);
 extern lv_obj_t *ui_ScrMain;
 extern lv_obj_t *ui_Header;
-extern lv_obj_t *ui_Container8;
-extern lv_obj_t *ui_Container14;
+extern lv_obj_t *ui_Cnt8;
+extern lv_obj_t *ui_C14;
 extern lv_obj_t *ui_Label3;
 extern lv_obj_t *ui_LblStationName;
-extern lv_obj_t *ui_Container15;
+extern lv_obj_t *ui_C15;
 extern lv_obj_t *ui_Label13;
 extern lv_obj_t *ui_LblOperatorName;
-void ui_event_Container7( lv_event_t * e);
-extern lv_obj_t *ui_Container7;
+extern lv_obj_t *ui_Cnt7;
 void ui_event_Image2( lv_event_t * e);
 extern lv_obj_t *ui_Image2;
 extern lv_obj_t *ui_Body;
 extern lv_obj_t *ui_TabView1;
 extern lv_obj_t *ui_TabPage1;
-extern lv_obj_t *ui_Container1;
+extern lv_obj_t *ui_PnlList;
 extern lv_obj_t *ui_Panel7;
 extern lv_obj_t *ui_Label6;
 extern lv_obj_t *ui_PnlOpDisplay;
@@ -117,6 +94,28 @@ extern lv_obj_t *ui_Container9;
 extern lv_obj_t *ui_Label4;
 // CUSTOM VARIABLES
 
+// SCREEN: ui_ScrLogin
+void ui_ScrLogin_screen_init(void);
+extern lv_obj_t *ui_ScrLogin;
+extern lv_obj_t *ui_Container6;
+extern lv_obj_t *ui_Container3;
+extern lv_obj_t *ui_Label14;
+extern lv_obj_t *ui_Container2;
+void ui_event_Panel8( lv_event_t * e);
+extern lv_obj_t *ui_Panel8;
+extern lv_obj_t *ui_Label8;
+void ui_event_Panel9( lv_event_t * e);
+extern lv_obj_t *ui_Panel9;
+extern lv_obj_t *ui_Label5;
+void ui_event_Panel10( lv_event_t * e);
+extern lv_obj_t *ui_Panel10;
+void ui_event_Image3( lv_event_t * e);
+extern lv_obj_t *ui_Image3;
+void ui_event_BtnBackLogin( lv_event_t * e);
+extern lv_obj_t *ui_BtnBackLogin;
+extern lv_obj_t *ui_Label58;
+// CUSTOM VARIABLES
+
 // SCREEN: ui_ScrPassword
 void ui_ScrPassword_screen_init(void);
 extern lv_obj_t *ui_ScrPassword;
@@ -159,11 +158,11 @@ extern lv_obj_t *ui_Label56;
 extern lv_obj_t *ui____initial_actions0;
 
 // IMAGES AND IMAGE SETS
-LV_IMG_DECLARE( ui_img_580822032);   // assets/cogwheel-setting-small.png
 LV_IMG_DECLARE( ui_img_user_change_png);   // assets/user_change.png
 LV_IMG_DECLARE( ui_img_1549334073);   // assets/down-circle-svgrepo-com.png
 LV_IMG_DECLARE( ui_img_1212854978);   // assets/play (2).png
 LV_IMG_DECLARE( ui_img_pause_png);   // assets/pause.png
+LV_IMG_DECLARE( ui_img_580822032);   // assets/cogwheel-setting-small.png
 
 // FONTS
 LV_FONT_DECLARE( ui_font_Barlow16);

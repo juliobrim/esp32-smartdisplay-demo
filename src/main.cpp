@@ -2,7 +2,20 @@
 
 #include <esp32_smartdisplay.h>
 #include <ui/ui.h>
+
 #include <lvgl.h>
+
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <esp32_smartdisplay.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+#include <Preferences.h>
+
+//Preferences store;
+
+String client_id = WiFi.macAddress();
+const char *client_id_cstr = client_id.c_str();
 
 struct User {
     const char* userID;
@@ -31,7 +44,7 @@ Order orders[5] = {
     {"0002", "Sofá Modular", "20 pçs", "08/02/2022", "08/02/2022"},
     {"0003", "Sofá Retrátil", "15 pçs", "12/02/2022", "12/02/2022"},
     {"0004", "Sofá Premium", "1.000 pçs", "17/02/2022", "17/02/2022"},
-    {"0005", "Julio Brim", "1 pçs", "14/10/1988", "14/10/2088"}
+    {"0006", "Sofá Premium", "1.000 pçs", "17/02/2022", "17/02/2022"}
 };
 
 const char* verifyUser(const char* userID, const char* pin) {
@@ -47,37 +60,48 @@ void CheckPassword(lv_event_t * e)
 {
     // Your code here
     const char * pin = lv_textarea_get_text(ui_TxtPin);
+    Serial.println(pin);
     const char * userID = lv_label_get_text(ui_LblUserID);
+    Serial.println(userID);
 
     const char* userName = verifyUser(userID, pin);
     if (userName) {
         lv_label_set_text(ui_LblOperatorName, userName);
-        lv_screen_load_anim((lv_obj_t*)ui_ScrMain, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, false);
+        _ui_screen_change( &ui_ScrMain, LV_SCR_LOAD_ANIM_NONE, 500, 0, ui_ScrMain_screen_init);
+       
     } else {
-        lv_screen_load_anim((lv_obj_t*)ui_ScrLogin, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, false);
+        _ui_screen_change( &ui_ScrLogin, LV_SCR_LOAD_ANIM_NONE, 500, 0, ui_ScrLogin_screen_init);
     }
 }
+
+// void OnSensor1Signal()
+// {
+//     static uint32_t cnt = 0;
+//     cnt++;
+//     lv_label_set_text_fmt(ui_dataPiecesCount, "%u", cnt);
+// }
 
 void StartOperation(lv_event_t * e)
 {
     // Your code here
-    lv_tabview_set_active(ui_TabView1, 1, LV_ANIM_OFF);
-    // lv_screen_load_anim((lv_obj_t*)ui_ScrMain, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, false);
+
 }
 
 void CmdRunningOpStart(lv_event_t * e){
     // Your code here
-    lv_tabview_set_active(ui_TabView1, 0, LV_ANIM_OFF);
+
 };
 void CmdRunningOpPause(lv_event_t * e){
     // Your code here
-    lv_tabview_set_active(ui_TabView1, 0, LV_ANIM_OFF);
+
 };
 
 const int gpioPin17 = 17; // Define the GPIO pin number
 const int gpioPin18 = 18; // Define the GPIO pin number
 
 
+
+bool previousGpioStatus = LOW;
 
 void setup()
 {
@@ -98,6 +122,7 @@ void setup()
     // lv_disp_set_rotation(disp, LV_DISP_ROT_90);
     //lv_disp_set_rotation(disp, LV_DISP_ROTATION_180);
     lv_disp_set_rotation(disp, LV_DISP_ROTATION_270);
+    Serial.println("Antes do ui_init");
 
     ui_init();
 
@@ -105,29 +130,20 @@ void setup()
     pinMode(gpioPin17, INPUT_PULLUP);
     pinMode(gpioPin18, INPUT_PULLUP);
 
-    // To use third party libraries, enable the define in lv_conf.h: #define LV_USE_QRCODE 1
+    // To use third party libraries, enable the define in lv_conf.h: #define LV_USE_QRCODE 1     
     
-    lv_screen_load_anim((lv_obj_t*)ui_ScrMain, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, false);
+    
+        // ui_OpDisplay1 = ui_PnlOpDisplay_create(ui_Container1);
+    
 
-    lv_obj_t *ui_PnlOpDisplays[20] = {nullptr};
+    //lv_label_set_text(ui_LblDeviceID, client_id_cstr);
 
-    for (int i = 0; i < 5; ++i) {
-        if (ui_PnlOpDisplays[i] != nullptr) {
-            lv_obj_del(ui_PnlOpDisplays[i]);
-            Serial.println("deletando");
-        }
-        ui_PnlOpDisplays[i] = ui_PnlOpDisplay_create(ui_Container1, orders[i].orderID, orders[i].productName, orders[i].amount, orders[i].dueDate, orders[i].endDate);
-        
-        if (i == 0) {
-            lv_obj_add_state( ui_PnlOpDisplays[i], LV_STATE_USER_1 );
-        } else
-        if (i == 1) {
-            lv_obj_add_state( ui_PnlOpDisplays[i], LV_STATE_USER_2 );
-        } else
-        if (i == 2) {
-            lv_obj_add_state( ui_PnlOpDisplays[i], LV_STATE_USER_3 );
-        }
-    }
+    //lv_screen_load_anim((lv_obj_t*)ui_ScrMain, LV_SCR_LOAD_ANIM_NONE, 500, 0, false); 
+
+    //_ui_screen_change( &ui_ScrMain, LV_SCR_LOAD_ANIM_NONE, 0, 0, ui_ScrMain_screen_init);
+    //lv_screen_load_anim((lv_obj_t*)ui_ScrLogin, LV_SCR_LOAD_ANIM_FADE_ON, 100, 0, false);
+    // sleep(2);
+    
 
     
     
@@ -135,6 +151,8 @@ void setup()
 
 ulong next_millis;
 auto lv_last_tick = millis();
+static uint32_t cnt = 0;
+
 
 void loop()
 {
@@ -145,25 +163,33 @@ void loop()
 
         char text_buffer[32];
         sprintf(text_buffer, "%lu", now);
-        //lv_label_set_text(uic_lblMillisecondsValue, text_buffer);
+        //lv_label_set_text(ui_lblMillisecondsValue, text_buffer);
 
 #ifdef BOARD_HAS_RGB_LED
         auto const rgb = (now / 2000) % 8;
         smartdisplay_led_set_rgb(rgb & 0x01, rgb & 0x02, rgb & 0x04);
 #endif
 
+#ifdef BOARD_HAS_CDS
+        auto cdr = analogReadMilliVolts(CDS);
+        sprintf(text_buffer, "%d", cdr);
+        //lv_label_set_text(ui_lblCdrValue, text_buffer);
+#endif
 
-        // Ler o estado do pino GPIO e publicar no serial
         int gpioStatus = digitalRead(gpioPin17);
-
-
-        //Definir a cor de fundo do uiLed1 de acordo com o estado do GPIO
+    //     //Definir a cor de fundo do uiLed1 de acordo com o estado do GPIO
         if (gpioStatus == HIGH) {
             
             lv_obj_add_state(ui_LedSensor1, LV_STATE_CHECKED);
         } else {
             lv_obj_remove_state(ui_LedSensor1, LV_STATE_CHECKED);
         }
+        if (gpioStatus == HIGH && !previousGpioStatus) {
+            cnt++;
+            lv_label_set_text_fmt(ui_dataPiecesCount, "%u", cnt);
+        }
+        previousGpioStatus = gpioStatus;
+    
 
         int gpio18Status = digitalRead(gpioPin18);
          if (gpio18Status == HIGH) {
@@ -171,9 +197,15 @@ void loop()
         } else {
             lv_obj_remove_state(ui_LedSensor2, LV_STATE_CHECKED);
         }
-
-
     }
+   
+
+
+    //     // Ler o estado do pino GPIO e publicar no serial
+    //     
+
+
+    // }
 
     // Update the ticker
     lv_tick_inc(now - lv_last_tick);
